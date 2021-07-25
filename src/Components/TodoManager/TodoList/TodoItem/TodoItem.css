@@ -1,0 +1,26 @@
+.main_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.main_flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.content_with_button {
+   
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+     
+}
+
+.title_with_duration {
+    display: flex;
+    flex-direction: column;
+     
+}
