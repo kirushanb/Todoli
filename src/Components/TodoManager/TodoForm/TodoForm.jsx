@@ -21,7 +21,8 @@ const TodoForm = () => {
           setTitleErr("");
         })
         .catch((err) => {
-          console.log(err);
+          setTitleErr(err.msg)
+          console.log(err.msg);
         });
     }
   };

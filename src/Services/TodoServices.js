@@ -14,6 +14,8 @@ export const addToDo = (todo) => {
     }
     return new Promise((resolve, reject)=>{
       const  {title} = todo
+      const filter=todoList.filter(n=>n.title===title)
+      if(filter.length===0){
         if(title){
             todoList.push(todo)
             localStorage.setItem("todo", JSON.stringify(todoList))
@@ -24,6 +26,12 @@ export const addToDo = (todo) => {
                 msg:"Something wrong!"
             })
         }
+      }else{
+        reject({
+            msg:"The meeting is already exists!"
+        })  
+      }
+        
     })
 }
 

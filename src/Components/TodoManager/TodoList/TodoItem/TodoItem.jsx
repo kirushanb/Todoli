@@ -44,6 +44,16 @@ const TodoItem = (props) => {
       })
       .catch((err) => console.log(err));
   };
+
+
+  const handleDone = () =>{
+    editTodo({ title, status: "completed", duration: null })
+    .then((todo) => {
+      dispatch({ type: "EDIT_TODO", todo: todo });
+    })
+    .catch((err) => console.log(err));
+  }
+
   const formatTime = () => {
     const getSeconds = `0${seconds % 60}`.slice(-2);
     const minutes = `${Math.floor(seconds / 60)}`;
@@ -65,6 +75,7 @@ const TodoItem = (props) => {
             {status === "pending" ? (
               !start ? (
                 <>
+                <Button outline color="info" size="sm" onClick={handleDone}>Mark As Done</Button>
                   <Button
                     style={{ marginRight: 128, marginLeft: 10 }}
                     outline
@@ -75,6 +86,7 @@ const TodoItem = (props) => {
                   >
                     Start
                   </Button>
+                  
                 </>
               ) : (
                 <>
