@@ -27,6 +27,21 @@ describe("TodoList", () => {
     );
   };
 
+  test("No todos to be show", async () => {
+    const InitialState = {
+        basket: [],
+        started: false,
+      };
+      render(
+        <StateProvider initialState={InitialState} reducer={Reducer}>
+          <TodoList />
+        </StateProvider>
+      );
+
+    
+    expect(screen.getByRole('alert')).toHaveTextContent("No Todos to show.");
+    
+  });
 
 
   test("Add todo to the pending list, reflect on the pending list and completed list should be null", async () => {

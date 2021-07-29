@@ -71,7 +71,7 @@ const TodoItem = ({todo, handleDelete}) => {
   }
 
   return (
-    <ListGroupItem for='pending'>
+    <ListGroupItem >
       <div className="main_div">
         <div className="main_flex">
           <div className="content_with_button">
