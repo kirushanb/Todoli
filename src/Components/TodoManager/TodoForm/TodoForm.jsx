@@ -1,31 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
-import { addToDo } from "../../../Services/TodoServices";
-import { useStateValue } from "../../../StateProvider/StateProvider";
+// import { addToDo } from "../../../Services/TodoServices";
+// import { useStateValue } from "../../../StateProvider/StateProvider";
 
-const TodoForm = () => {
-  const [title, setTitle] = useState("")
-  const [titleErr, setTitleErr] = useState("")
-  const [, dispatch] = useStateValue()
+const TodoForm = React.memo( ({handleSubmit, handleChange, title, titleErr}) => {
+  console.log("form rendered")
+  
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (!title) {
-      setTitleErr("Todo cannot be blank!");
-    } else {
-      const todo ={title, status:"pending", duration:null}
-      addToDo(todo)
-        .then((todo) => {
-          dispatch({ type: "ADD_TO_BASKET", item: todo });
-          setTitle("");
-          setTitleErr("");
-        })
-        .catch((err) => {
-          setTitleErr(err.msg)
-          console.log(err.msg);
-        });
-    }
-  };
+  
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -33,7 +15,8 @@ const TodoForm = () => {
         <Label htmlFor="title">Todo</Label>
         <Input
           value={title}
-          onChange={(e)=> setTitle(e.target.value)}
+          onChange={handleChange}
+          placeholder='todoForm'
         />
         <span style={{ color: "red", fontSize: "12px" }}>{titleErr}</span>
       </FormGroup>
@@ -41,6 +24,6 @@ const TodoForm = () => {
       <Button style={{marginTop:20}} color="secondary">Add</Button>
     </Form>
   );
-};
+})
 
 export default TodoForm;

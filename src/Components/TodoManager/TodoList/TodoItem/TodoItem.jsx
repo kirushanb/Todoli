@@ -1,27 +1,30 @@
 import React, { useState, useRef } from "react";
 import { ListGroupItem, Button } from "reactstrap";
-import { deleteTodo, editTodo } from "../../../../Services/TodoServices";
+import {  editTodo } from "../../../../Services/TodoServices";
 import { useStateValue } from "../../../../StateProvider/StateProvider";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import "./TodoItem.css";
 
-const TodoItem = (props) => {
-  const { todo } = props;
+
+
+
+
+
+const TodoItem = ({todo, handleDelete}) => {
+  console.log("Pending component rendered")
+ 
   const { title, status } = todo;
   const [{ started }, dispatch] = useStateValue();
   const [start, setStart] = useState(false);
   const [seconds, setSeconds] = useState(0);
+  const [time, setTime] = useState("");
   const timer = useRef(null);
 
-  const handleDelete = () => {
-    deleteTodo(todo)
-      .then((todo) => {
-        dispatch({ type: "REMOVE_FROM_BASKET", title: todo.title });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
+  
+
+
+
 
   const handleStart = () => {
     dispatch({ type: "SET_STARTED", bool: true });
@@ -36,7 +39,8 @@ const TodoItem = (props) => {
     timer.current = null;
     setStart(false);
     setSeconds(0);
-
+    setTime(formatTime())
+    console.log(time)
     editTodo({ title, status: "completed", duration: formatTime() })
       .then((todo) => {
         dispatch({ type: "EDIT_TODO", todo: todo });
@@ -54,21 +58,25 @@ const TodoItem = (props) => {
     .catch((err) => console.log(err));
   }
 
+   
+
   const formatTime = () => {
+    console.log("Format time called")
     const getSeconds = `0${seconds % 60}`.slice(-2);
     const minutes = `${Math.floor(seconds / 60)}`;
     const getMinutes = `0${minutes % 60}`.slice(-2);
     const getHours = `0${Math.floor(seconds / 3600)}`.slice(-2);
 
     return `${getHours} : ${getMinutes} : ${getSeconds}`;
-  };
+  }
+
   return (
-    <ListGroupItem>
+    <ListGroupItem for='pending'>
       <div className="main_div">
         <div className="main_flex">
           <div className="content_with_button">
-            <div className="title_with_duration">
-              <label>{title}</label>
+            <div id='title_pending_todo' className="title_with_duration" aria-labelledby='title_pending_todo'>
+              <label htmlFor='title_pending_todo' aria-labelledby='title_pending_todo'>{title}</label>
             </div>
           </div>
           <div className="content_with_button">
@@ -99,7 +107,7 @@ const TodoItem = (props) => {
                   >
                     Stop
                   </Button>
-                  <p style={{ marginLeft: 20 }}>{formatTime()}</p>
+                  <h1 style={{ marginLeft: 20 }}>{formatTime()}</h1>
                   <FiberManualRecordIcon
                     style={{ color: "green", marginLeft: 20 }}
                   />
@@ -115,7 +123,7 @@ const TodoItem = (props) => {
                 className="btn-close"
                 aria-label="Close"
                 style={{ marginLeft: 20 }}
-                onClick={handleDelete}
+                onClick={()=>handleDelete(todo)}
               />
             )}
           </div>

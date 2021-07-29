@@ -7,9 +7,13 @@
     "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
+    "@testing-library/react-hooks": "^7.0.1",
     "@testing-library/user-event": "^12.1.10",
     "bootstrap": "^5.0.2",
     "bootstrap-icons": "^1.5.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "nanoid": "^3.1.23",
     "netlify-cli": "^5.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -41,5 +45,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
+    "enzyme": "^3.11.0"
   }
 }
